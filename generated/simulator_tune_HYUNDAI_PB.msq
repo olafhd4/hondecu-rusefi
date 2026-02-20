@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <msq xmlns="http://www.msefi.com/:msq">
     <page/>
-    <page number="0" size="24468">
+    <page number="0" size="24476">
         <constant name="accelEnrichmentMode">"MS Adder"</constant>
         <constant name="accelerometerCsPin">"NONE"</constant>
         <constant name="accelerometerCsPinMode">"default"</constant>
@@ -2070,7 +2070,7 @@
 </constant>
         <constant name="ignitionKeyDigitalPin">"NONE"</constant>
         <constant name="ignitionKeyDigitalPinMode">"DEFAULT"</constant>
-        <constant cols="1" digits="0" name="ignitionLoadBins" rows="16" units="Load">
+        <constant cols="1" digits="0" name="ignitionLoadBins" rows="16" units="{bitStringValue(ignLoadUnitLabels, ignLoadUnitIdxPcv)}">
          21
          27
          33
@@ -4873,7 +4873,7 @@ end</constant>
 </constant>
         <constant name="veBlends4_yAxisOverride">"Zero"</constant>
         <constant name="vehicleSpeedSensorInputPin">"NONE"</constant>
-        <constant cols="1" digits="0" name="veLoadBins" rows="16" units="{bitStringValue(fuelUnits, fuelAlgorithm) }">
+        <constant cols="1" digits="0" name="veLoadBins" rows="16" units="{bitStringValue(veLoadUnitLabels, veLoadUnitIdxPcv)}">
          10
          20
          30
@@ -5068,6 +5068,12 @@ end</constant>
         <constant name="wastegatePositionSensor">"NONE"</constant>
         <constant name="watchOutForLinearTime">"yes"</constant>
         <constant name="widebandOnSecondBus">"CAN1"</constant>
+        <constant name="wizardCamTrigger">"no"</constant>
+        <constant name="wizardCrankTrigger">"no"</constant>
+        <constant name="wizardFiringOrder">"no"</constant>
+        <constant name="wizardInjectorFlow">"no"</constant>
+        <constant name="wizardMapSensorType">"no"</constant>
+        <constant name="wizardNumberOfCylinders">"no"</constant>
         <constant digits="0" name="wizardPanelToShow" units="">0</constant>
         <constant digits="2" name="wwaeBeta" units="Fraction">0.0</constant>
         <constant digits="2" name="wwaeTau" units="Seconds">0.0</constant>
@@ -5133,8 +5139,8 @@ end</constant>
 </constant>
         <constant name="yesUnderstandLocking">"no"</constant>
     </page>
-    <versionInfo firmwareInfo="20260206" nPages="1" signature="rusEFI main.2026.02.20.hondecu.3718516143" version="5.0"/>
-    <bibliography author="rusEFI 20260206" writeDate="date"/>
+    <versionInfo firmwareInfo="20260214" nPages="1" signature="rusEFI main.2026.02.20.hondecu.2248507089" version="5.0"/>
+    <bibliography author="rusEFI 20260214" writeDate="date"/>
     <settings/>
     <userComments/>
 </msq>
