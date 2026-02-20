@@ -1,0 +1,15 @@
+--- a/firmware/controllers/lua/lua.mk
++++ b/firmware/controllers/lua/lua.mk
+@@ -1,5 +1,6 @@
+ LUA_DIR=$(CONTROLLERS_DIR)/lua
+ LUA_EXT=$(PROJECT_DIR)/ext/lua
+ 
++ifneq ($(EFI_LUA), FALSE)
+ ALLCPPSRC += $(LUA_DIR)/lua.cpp \
+ 			 $(LUA_DIR)/lua_heap.cpp \
+ 			 $(LUA_DIR)/lua_hooks.cpp \
+@@ -53,3 +54,4 @@ ALLCSRC += \
+ 	$(LUA_EXT)/lutf8lib.c \
+ 	$(LUA_EXT)/linit.c \
+ 
++endif
