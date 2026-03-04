@@ -38,7 +38,7 @@ static void customBoardDefaultConfiguration() {
 
     // Podstawowe dzielniki (dopasuj do swojego schematu jeśli inne)
 	engineConfiguration->analogInputDividerCoefficient = 1.5f;   // dla MAP/TPS/oil/fuel press na tych dzielnikach
-	engineConfiguration->vbattDividerCoeff = 6.0f;                // dla VBAT 100k/20k
+	engineConfiguration->vbattDividerCoeff = 5.68f;                // dla VBAT 220k/47k
     engineConfiguration->adcVcc = 3.3f;
 
     engineConfiguration->clt.config.bias_resistor = 2490;
