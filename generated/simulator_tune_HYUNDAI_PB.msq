@@ -5139,7 +5139,7 @@ end</constant>
 </constant>
         <constant name="yesUnderstandLocking">"no"</constant>
     </page>
-    <versionInfo firmwareInfo="20260214" nPages="1" signature="rusEFI main.2026.03.06.hondecu.2248507089" version="5.0"/>
+    <versionInfo firmwareInfo="20260214" nPages="1" signature="rusEFI main.2026.03.06.hondecu.1163060089" version="5.0"/>
     <bibliography author="rusEFI 20260214" writeDate="date"/>
     <settings/>
     <userComments/>
