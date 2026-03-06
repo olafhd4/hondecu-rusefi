@@ -70,9 +70,9 @@ pins:
     class: switch_inputs
     ts_name: Starter Switch (PD0)
 
-  - id: B2
+  - id: E2
     class: switch_inputs
-    ts_name: AC Switch (PB2)
+    ts_name: AC Switch (PE2)
 
   - id: [D1, D1]
     class: [switch_inputs, event_inputs]
