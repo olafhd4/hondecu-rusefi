@@ -10,7 +10,6 @@ const char * getBoardSpecificPinName(brain_pin_e brainPin) {
 		case Gpio::B0: return "IACV (PB0)";
 		case Gpio::B10: return "Fuel Pump (PB10)";
 		case Gpio::B12: return "TDC Trigger (PB12)";
-		case Gpio::B2: return "AC Switch (PB2)";
 		case Gpio::B8: return "INJ14 (PB8)";
 		case Gpio::B9: return "INJ23 (PB9)";
 		case Gpio::C13: return "Clutch Switch (PC13)";
@@ -21,6 +20,7 @@ const char * getBoardSpecificPinName(brain_pin_e brainPin) {
 		case Gpio::D3: return "ALTF (PD3)";
 		case Gpio::D4: return "BKSW (PD4)";
 		case Gpio::D5: return "Table Switch (PD5)";
+		case Gpio::E2: return "AC Switch (PE2)";
 		default: return nullptr;
 	}
 	return nullptr;
