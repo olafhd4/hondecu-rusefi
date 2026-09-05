@@ -19,3 +19,7 @@ DDEFS += -DEFI_WIDEBAND_FIRMWARE_UPDATE=FALSE
 
 #see main repo for details on this any many other optional subsystems. We have too many, one has to choose what fits into his choice of stm32
 #DDEFS += -DEFI_ONBOARD_MEMS=TRUE
+
+# Wymuszenie sprzętowego sterownika SDIO (zamiast powolnego SPI)
+DDEFS += -DHAL_USE_SDC=TRUE
+DDEFS += -DEFI_SDC_DEVICE=SDCD1

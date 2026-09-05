@@ -44,6 +44,11 @@ static void customBoardDefaultConfiguration() {
 
     engineConfiguration->clt.config.bias_resistor = 2490;
     engineConfiguration->iat.config.bias_resistor = 2490;
+
+    // Aktywacja logowania na kartę SD (Hardware SDIO)
+    engineConfiguration->isSdCardEnabled = true;
+    engineConfiguration->sdCardSpiDevice = SPI_DEVICE_NONE; // Wyłączamy zapis po SPI
+    engineConfiguration->sdCardCsPin = Gpio::Unassigned;    // Nie potrzebujemy pinu CS, bo SDIO ogarnia to sprzętowo
 }
 
 void setup_custom_board_overrides() {
