@@ -22,6 +22,10 @@ void boardInit(void) {
 	stm32_gpio_init();
 	stm32_clock_init();
 }
+#else
+void boardInit(void) {
+	/* Simulator doesn't need hardware initialization */
+}
 #endif
 
 #if !defined(EFI_SIMULATOR) && (HAL_USE_SDC || defined(__DOXYGEN__))
