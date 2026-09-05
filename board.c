@@ -16,13 +16,15 @@
 /**
  * @brief Board-specific initialization.
  */
+#if !defined(EFI_SIMULATOR)
 void boardInit(void) {
 	/* STM32F4xx HAL initialization */
 	stm32_gpio_init();
 	stm32_clock_init();
 }
+#endif
 
-#if HAL_USE_SDC || defined(__DOXYGEN__)
+#if !defined(EFI_SIMULATOR) && (HAL_USE_SDC || defined(__DOXYGEN__))
 /**
  * @brief SDC card detection.
  */
@@ -44,7 +46,7 @@ bool sdc_lld_is_write_protected(SDCDriver *sdcp)
 }
 #endif /* HAL_USE_SDC */
 
-#if HAL_USE_MMC_SPI || defined(__DOXYGEN__)
+#if !defined(EFI_SIMULATOR) && (HAL_USE_MMC_SPI || defined(__DOXYGEN__))
 /**
  * @brief MMC_SPI card detection.
  */
