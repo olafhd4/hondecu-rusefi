@@ -27,6 +27,6 @@ DDEFS += -DHAL_USE_SDC=TRUE
 DDEFS += -DSTM32_SDC_USE_SDIO=TRUE
 
 # board.c from this directory - only for firmware build, not simulator
-ifndef IS_RE_BOOTLOADER
+ifneq ($(EFI_SIMULATOR),1)
 BOARD_C = $(BOARD_DIR)/board.c
 endif
