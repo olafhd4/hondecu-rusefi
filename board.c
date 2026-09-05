@@ -6,7 +6,9 @@
  */
 
 #include "hal.h"
+#if !defined(EFI_SIMULATOR)
 #include "hal_community.h"
+#endif
 #include "unused.h"
 
 #include "board.h"
