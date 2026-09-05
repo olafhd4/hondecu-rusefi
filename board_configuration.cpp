@@ -18,6 +18,8 @@ static void customBoardDefaultConfiguration() {
     // Wtryski
     engineConfiguration->injectionPins[0] = Gpio::B8;   // INJ14 - PB8
     engineConfiguration->injectionPins[1] = Gpio::B9;   // INJ23 - PB9
+    engineConfiguration->injectionPins[2] = Gpio::E13;   // INJ3 - PE13
+    engineConfiguration->injectionPins[3] = Gpio::E14;   // INJ4 - PE14
 
     // Zapłon
     engineConfiguration->ignitionPins[0] = Gpio::A8;    // IGPLS - PA8
@@ -30,6 +32,10 @@ static void customBoardDefaultConfiguration() {
     engineConfiguration->iat.adcChannel      = EFI_ADC_2;    // IAT - PA2
     engineConfiguration->clt.adcChannel      = EFI_ADC_3;    // ECT   - PA3
     engineConfiguration->vbattAdcChannel     = EFI_ADC_12;   // VBatt - PC2
+
+    // CAN
+    engineConfiguration->canRxPin = Gpio::D0;
+    engineConfiguration->canTxPin = Gpio::D1;
 
     // Podstawowe dzielniki
 	engineConfiguration->analogInputDividerCoefficient = 1.5f;   // dla MAP/TPS/oil/fuel press na tych dzielnikach

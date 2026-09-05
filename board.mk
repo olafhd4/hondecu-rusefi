@@ -19,3 +19,12 @@ DDEFS += -DEFI_WIDEBAND_FIRMWARE_UPDATE=FALSE
 
 #see main repo for details on this any many other optional subsystems. We have too many, one has to choose what fits into his choice of stm32
 #DDEFS += -DEFI_ONBOARD_MEMS=TRUE
+
+# SD Card logging via SDIO
+DDEFS += -DEFI_STORAGE_SD=TRUE
+DDEFS += -DEFI_SUPPORT_FATFS=TRUE
+DDEFS += -DHAL_USE_SDC=TRUE
+DDEFS += -DSTM32_SDC_USE_SDIO=TRUE
+
+# board.c from this directory
+BOARD_C = $(BOARD_DIR)/board.c

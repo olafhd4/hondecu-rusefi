@@ -1,0 +1,65 @@
+/**
+ * @file boards/hondecu/board.c
+ *
+ * @date Sep 05, 2026
+ * @author Hondecu Board Configuration
+ */
+
+#include "hal.h"
+#include "hal_community.h"
+#include "unused.h"
+
+#include "board.h"
+
+/**
+ * @brief Board-specific initialization.
+ */
+void boardInit(void) {
+	/* STM32F4xx HAL initialization */
+	stm32_gpio_init();
+	stm32_clock_init();
+}
+
+#if HAL_USE_SDC || defined(__DOXYGEN__)
+/**
+ * @brief SDC card detection.
+ */
+bool sdc_lld_is_card_inserted(SDCDriver *sdcp)
+{
+	UNUSED(sdcp);
+	/* SD card is always present on this board */
+	return true;
+}
+
+/**
+ * @brief SDC card write protection detection.
+ */
+bool sdc_lld_is_write_protected(SDCDriver *sdcp)
+{
+	UNUSED(sdcp);
+	/* SD card is not write protected */
+	return false;
+}
+#endif /* HAL_USE_SDC */
+
+#if HAL_USE_MMC_SPI || defined(__DOXYGEN__)
+/**
+ * @brief MMC_SPI card detection.
+ */
+bool mmc_lld_is_card_inserted(MMCDriver *mmcp)
+{
+	UNUSED(mmcp);
+	/* TODO: Fill the implementation.*/
+	return true;
+}
+
+/**
+ * @brief MMC_SPI card write protection detection.
+ */
+bool mmc_lld_is_write_protected(MMCDriver *mmcp)
+{
+	UNUSED(mmcp);
+	/* TODO: Fill the implementation.*/
+	return false;
+}
+#endif /* HAL_USE_MMC_SPI */
