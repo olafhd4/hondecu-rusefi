@@ -47,7 +47,7 @@ static void customBoardDefaultConfiguration() {
 
     // Aktywacja logowania na kartę SD (Hardware SDIO)
     engineConfiguration->isSdCardEnabled = true;
-    engineConfiguration->sdCardSpiDevice = SPI_DEVICE_NONE; // Wyłączamy zapis po SPI
+    engineConfiguration->sdCardSpiDevice = SPI_NONE; // Wyłączamy zapis po SPI
     engineConfiguration->sdCardCsPin = Gpio::Unassigned;    // Nie potrzebujemy pinu CS, bo SDIO ogarnia to sprzętowo
 }
 
