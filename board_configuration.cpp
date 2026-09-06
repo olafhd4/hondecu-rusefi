@@ -51,6 +51,30 @@ static void customBoardDefaultConfiguration() {
     engineConfiguration->sdCardCsPin = Gpio::Unassigned;    // Nie potrzebujemy pinu CS, bo SDIO ogarnia to sprzętowo
 }
 
+static void customBoardInitHardware() {
+    // STM32F407 SDIO:
+    // PC8  = SDIO_D0
+    // PC9  = SDIO_D1
+    // PC10 = SDIO_D2
+    // PC11 = SDIO_D3
+    // PC12 = SDIO_CK
+    // PD2  = SDIO_CMD
+
+    const uint32_t sdioMode =
+        PAL_MODE_ALTERNATE(12) |
+        PAL_STM32_OTYPE_PUSHPULL |
+        PAL_STM32_OSPEED_HIGHEST |
+        PAL_STM32_PUDR_PULLUP;
+
+    palSetPadMode(GPIOC, 8,  sdioMode); // D0
+    palSetPadMode(GPIOC, 9,  sdioMode); // D1
+    palSetPadMode(GPIOC, 10, sdioMode); // D2
+    palSetPadMode(GPIOC, 11, sdioMode); // D3
+    palSetPadMode(GPIOC, 12, sdioMode); // CK
+    palSetPadMode(GPIOD, 2,  sdioMode); // CMD
+}
+
 void setup_custom_board_overrides() {
+    custom_board_InitHardware = customBoardInitHardware;
     custom_board_DefaultConfiguration = customBoardDefaultConfiguration;
 }
