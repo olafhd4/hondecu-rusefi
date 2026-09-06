@@ -74,6 +74,6 @@ static void customBoardInitHardware() {
 }
 
 void setup_custom_board_overrides() {
-    custom_board_InitHardware = customBoardInitHardware;
+    custom_board_InitHardwareEarly = customBoardInitHardware;
     custom_board_DefaultConfiguration = customBoardDefaultConfiguration;
 }
