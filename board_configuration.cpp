@@ -49,6 +49,7 @@ static void customBoardDefaultConfiguration() {
     engineConfiguration->isSdCardEnabled = true;
     engineConfiguration->sdCardSpiDevice = SPI_NONE; // Wyłączamy zapis po SPI
     engineConfiguration->sdCardCsPin = Gpio::Unassigned;    // Nie potrzebujemy pinu CS, bo SDIO ogarnia to sprzętowo
+    engineConfiguration->sdCardCdPin = Gpio::Unassigned;
 }
 
 void setup_custom_board_overrides() {
