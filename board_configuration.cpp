@@ -64,7 +64,7 @@ static void customBoardInitHardware() {
         PAL_MODE_ALTERNATE(12) |
         PAL_STM32_OTYPE_PUSHPULL |
         PAL_STM32_OSPEED_HIGHEST |
-        PAL_STM32_PUDR_PULLUP;
+        PAL_STM32_PUPDR_PULLUP;
 
     palSetPadMode(GPIOC, 8,  sdioMode); // D0
     palSetPadMode(GPIOC, 9,  sdioMode); // D1
