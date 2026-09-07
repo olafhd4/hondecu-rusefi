@@ -23,4 +23,4 @@ DDEFS += -DEFI_WIDEBAND_FIRMWARE_UPDATE=FALSE
 # Wymuszenie sprzętowego sterownika SDIO (zamiast powolnego SPI)
 DDEFS += -DHAL_USE_SDC=TRUE
 DDEFS += -DEFI_SDC_DEVICE=SDCD1
-DDEFS += -Dboard_sdc_is_inserted()=true
+DDEFS += -D"board_sdc_is_inserted()=true"
