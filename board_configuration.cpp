@@ -13,7 +13,20 @@ Gpio getWarningLedPin() {
 	return Gpio::D13; // MIL / warning LED on PD13
 }
 
-// ============================================================ // SDIO DEBUG // ============================================================ static void debugSdioRegisters(const char* where) { efiPrintf("========== SDIO DEBUG: %s ==========", where); efiPrintf("GPIOC MODER = 0x%08X", GPIOC->MODER); efiPrintf("GPIOC AFR0 = 0x%08X", GPIOC->AFR[0]); efiPrintf("GPIOC AFR1 = 0x%08X", GPIOC->AFR[1]); efiPrintf("GPIOD MODER = 0x%08X", GPIOD->MODER); efiPrintf("GPIOD AFR0 = 0x%08X", GPIOD->AFR[0]); efiPrintf("GPIOD AFR1 = 0x%08X", GPIOD->AFR[1]); efiPrintf("SDIO POWER = 0x%08X", SDIO->POWER); efiPrintf("SDIO CLKCR = 0x%08X", SDIO->CLKCR); efiPrintf("SDIO STA = 0x%08X", SDIO->STA); efiPrintf("======================================"); }
+// ============================================================ // SDIO DEBUG // ============================================================ 
+static void debugSdioRegisters(const char* where) { 
+    efiPrintf("========== SDIO DEBUG: %s ==========", where); 
+    efiPrintf("GPIOC MODER = 0x%08X", GPIOC->MODER); 
+    efiPrintf("GPIOC AFR0 = 0x%08X", GPIOC->AFR[0]); 
+    efiPrintf("GPIOC AFR1 = 0x%08X", GPIOC->AFR[1]); 
+    efiPrintf("GPIOD MODER = 0x%08X", GPIOD->MODER); 
+    efiPrintf("GPIOD AFR0 = 0x%08X", GPIOD->AFR[0]); 
+    efiPrintf("GPIOD AFR1 = 0x%08X", GPIOD->AFR[1]); 
+    efiPrintf("SDIO POWER = 0x%08X", SDIO->POWER); 
+    efiPrintf("SDIO CLKCR = 0x%08X", SDIO->CLKCR); 
+    efiPrintf("SDIO STA = 0x%08X", SDIO->STA); 
+    efiPrintf("======================================"); 
+}
 
 // board-specific configuration setup
 static void customBoardDefaultConfiguration() {
