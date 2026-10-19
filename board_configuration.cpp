@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "board_overrides.h"
 
+void setupBoardHardwareTestOverrides();
+
 Gpio getCommsLedPin() {
 	return Gpio::Unassigned;
 }
@@ -70,5 +72,6 @@ static void customBoardInitHardware() {
 
 void setup_custom_board_overrides() {
     custom_board_preHalInit = customBoardInitHardware;
+    setupBoardHardwareTestOverrides();
     custom_board_DefaultConfiguration = customBoardDefaultConfiguration;
 }
