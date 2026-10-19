@@ -4,24 +4,40 @@
 #include "pch.h"
 
 // see comments at declaration in pin_repository.h
-const char * getBoardSpecificPinName(brain_pin_e brainPin) {
-	switch(brainPin) {
-		case Gpio::A5: return "TDC Trigger (PA5)";
-		case Gpio::A8: return "IGN (PA8)";
-		case Gpio::B0: return "IACV (PB0)";
-		case Gpio::B10: return "Fuel Pump (PB10)";
-		case Gpio::B8: return "INJ14 (PB8)";
-		case Gpio::B9: return "INJ23 (PB9)";
-		case Gpio::C13: return "Clutch Switch (PC13)";
-		case Gpio::D0: return "Starter Switch (PD0)";
-		case Gpio::D1: return "VSS (PD1)";
-		case Gpio::D12: return "AC Clutch (PD12)";
-		case Gpio::D13: return "MIL (PD13)";
-		case Gpio::D3: return "ALTF (PD3)";
-		case Gpio::D4: return "BKSW (PD4)";
-		case Gpio::D5: return "Table Switch (PD5)";
-		case Gpio::E2: return "AC Switch (PE2)";
-		default: return nullptr;
+const char* getBoardSpecificPinName(brain_pin_e brainPin) {
+	switch (brainPin) {
+		case Gpio::A5:
+			return "TDC Trigger (PA5)";
+		case Gpio::A8:
+			return "IGN (PA8)";
+		case Gpio::B0:
+			return "IACV (PB0)";
+		case Gpio::B10:
+			return "Fuel Pump (PB10)";
+		case Gpio::B8:
+			return "INJ14 (PB8)";
+		case Gpio::B9:
+			return "INJ23 (PB9)";
+		case Gpio::C13:
+			return "Clutch Switch (PC13)";
+		case Gpio::D0:
+			return "Starter Switch (PD0)";
+		case Gpio::D1:
+			return "VSS (PD1)";
+		case Gpio::D12:
+			return "AC Clutch (PD12)";
+		case Gpio::D13:
+			return "MIL (PD13)";
+		case Gpio::D3:
+			return "ALTF (PD3)";
+		case Gpio::D4:
+			return "BKSW (PD4)";
+		case Gpio::D5:
+			return "Table Switch (PD5)";
+		case Gpio::E2:
+			return "AC Switch (PE2)";
+		default:
+			return nullptr;
 	}
 	return nullptr;
 }
