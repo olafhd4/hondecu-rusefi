@@ -1,0 +1,15 @@
+diff --git a/os/hal/src/hal_sdc.c b/os/hal/src/hal_sdc.c
+--- a/os/hal/src/hal_sdc.c
++++ b/os/hal/src/hal_sdc.c
+@@ -721,9 +721,10 @@ bool sdcConnect(SDCDriver *sdcp) {
+     /* Asks for the RCA.*/
+     if (sdc_lld_send_cmd_short_crc(sdcp, MMCSD_CMD_SEND_RELATIVE_ADDR,
+                                    0, &sdcp->rca)) {
+       goto failed;
+     }
++    sdcp->rca &= 0xFFFF0000U;
+   }
+ 
+   /* Reads CSD.*/
+   if (sdc_lld_send_cmd_long_crc(sdcp, MMCSD_CMD_SEND_CSD,
+                                 sdcp->rca, sdcp->csd)) {
