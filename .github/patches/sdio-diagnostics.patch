@@ -1,0 +1,100 @@
+diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
+--- a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
++++ b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
+@@ -69,6 +69,13 @@
+ 
+ /** @brief SDCD1 driver identifier.*/
+ SDCDriver SDCD1;
++
++/* Temporary SDIO diagnostics; inspect in the downloaded ELF with a debugger. */
++volatile uint32_t sdc_dbg_cmd;
++volatile uint32_t sdc_dbg_arg;
++volatile uint32_t sdc_dbg_sta;
++volatile uint32_t sdc_dbg_resp;
++volatile uint32_t sdc_dbg_cmd_count;
+ 
+ /*===========================================================================*/
+ /* Driver local variables and types.                                         */
+@@ -585,10 +592,15 @@
+  */
+ void sdc_lld_send_cmd_none(SDCDriver *sdcp, uint8_t cmd, uint32_t arg) {
+ 
++  sdc_dbg_cmd = cmd;
++  sdc_dbg_arg = arg;
++  sdc_dbg_resp = 0xFFFFFFFFU;
++  sdc_dbg_cmd_count++;
+   sdcp->sdio->ARG = arg;
+   sdcp->sdio->CMD = (uint32_t)cmd | SDIO_CMD_CPSMEN;
+   while ((sdcp->sdio->STA & SDIO_STA_CMDSENT) == 0U) {
+   }
++  sdc_dbg_sta = sdcp->sdio->STA;
+   sdcp->sdio->ICR = SDIO_ICR_CMDSENTC;
+ }
+ 
+@@ -611,11 +623,16 @@
+                             uint32_t *resp) {
+   uint32_t sta;
+ 
++  sdc_dbg_cmd = cmd;
++  sdc_dbg_arg = arg;
++  sdc_dbg_resp = 0xFFFFFFFFU;
++  sdc_dbg_cmd_count++;
+   sdcp->sdio->ARG = arg;
+   sdcp->sdio->CMD = (uint32_t)cmd | SDIO_CMD_WAITRESP_0 | SDIO_CMD_CPSMEN;
+   while (((sta = sdcp->sdio->STA) & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+                                      SDIO_STA_CCRCFAIL)) == 0U)
+     ;
++  sdc_dbg_sta = sta;
+   sdcp->sdio->ICR = sta & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+                            SDIO_STA_CCRCFAIL);
+   if ((sta & (SDIO_STA_CTIMEOUT)) != 0U) {
+@@ -623,6 +640,7 @@
+     return HAL_FAILED;
+   }
+   *resp = sdcp->sdio->RESP1;
++  sdc_dbg_resp = *resp;
+   return HAL_SUCCESS;
+ }
+ 
+@@ -644,17 +662,23 @@
+                                 uint32_t *resp) {
+   uint32_t sta;
+ 
++  sdc_dbg_cmd = cmd;
++  sdc_dbg_arg = arg;
++  sdc_dbg_resp = 0xFFFFFFFFU;
++  sdc_dbg_cmd_count++;
+   sdcp->sdio->ARG = arg;
+   sdcp->sdio->CMD = (uint32_t)cmd | SDIO_CMD_WAITRESP_0 | SDIO_CMD_CPSMEN;
+   while (((sta = sdcp->sdio->STA) & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+                                      SDIO_STA_CCRCFAIL)) == 0U)
+     ;
++  sdc_dbg_sta = sta;
+   sdcp->sdio->ICR = sta & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT | SDIO_STA_CCRCFAIL);
+   if ((sta & (SDIO_STA_CTIMEOUT | SDIO_STA_CCRCFAIL)) != 0U) {
+     sdc_lld_collect_errors(sdcp, sta);
+     return HAL_FAILED;
+   }
+   *resp = sdcp->sdio->RESP1;
++  sdc_dbg_resp = *resp;
+   return HAL_SUCCESS;
+ }
+ 
+@@ -676,6 +700,10 @@
+                                uint32_t *resp) {
+   uint32_t sta;
+ 
++  sdc_dbg_cmd = cmd;
++  sdc_dbg_arg = arg;
++  sdc_dbg_resp = 0xFFFFFFFFU;
++  sdc_dbg_cmd_count++;
+   (void)sdcp;
+ 
+   sdcp->sdio->ARG = arg;
+@@ -695,5 +723,6 @@
+   *resp++ = sdcp->sdio->RESP3;
+   *resp++ = sdcp->sdio->RESP2;
+   *resp   = sdcp->sdio->RESP1;
++  sdc_dbg_resp = resp[-3];
+   return HAL_SUCCESS;
+ }
