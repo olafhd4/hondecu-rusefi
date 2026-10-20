@@ -47,31 +47,17 @@ static void customBoardDefaultConfiguration() {
     engineConfiguration->clt.config.bias_resistor = 2490;
     engineConfiguration->iat.config.bias_resistor = 2490;
 
-    // Aktywacja logowania na kartę SD (Hardware SDIO)
+    // SD card on SPI3
     engineConfiguration->isSdCardEnabled = true;
-    engineConfiguration->sdCardSpiDevice = SPI_NONE; // Wyłączamy zapis po SPI
-    engineConfiguration->sdCardCsPin = Gpio::Unassigned;    // Nie potrzebujemy pinu CS, bo SDIO ogarnia to sprzętowo
-}
-
-static void customBoardInitHardware() {
-    // STM32F407 SDIO:
-    // PC8  = SDIO_D0
-    // PC9  = SDIO_D1
-    // PC10 = SDIO_D2
-    // PC11 = SDIO_D3
-    // PC12 = SDIO_CK
-    // PD2  = SDIO_CMD
-
-    palSetPadMode(GPIOC, 8, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_PULLUP); // DAT0
-    palSetPadMode(GPIOC, 9, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_PULLUP); // DAT1
-    palSetPadMode(GPIOC, 10, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_PULLUP); // DAT2
-    palSetPadMode(GPIOC, 11, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_PULLUP); // DAT3
-    palSetPadMode(GPIOD, 2, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_PULLUP); // CMD
-    palSetPadMode(GPIOC, 12, PAL_MODE_ALTERNATE(12) | PAL_STM32_OSPEED_HIGHEST); // CLK — bez pull-upa
+    engineConfiguration->sdCardSpiDevice = SPI_DEVICE_3;
+    engineConfiguration->sdCardCsPin = Gpio::C9;
+    engineConfiguration->is_enabled_spi_3 = true;
+    engineConfiguration->spi3sckPin = Gpio::C10;
+    engineConfiguration->spi3misoPin = Gpio::C11;
+    engineConfiguration->spi3mosiPin = Gpio::C12;
 }
 
 void setup_custom_board_overrides() {
-    custom_board_InitHardware = customBoardInitHardware;
     setupBoardHardwareTestOverrides();
     custom_board_DefaultConfiguration = customBoardDefaultConfiguration;
 }

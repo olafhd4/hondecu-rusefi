@@ -28,8 +28,3 @@ DDEFS += -DSTM32_UART_USE_USART1=TRUE
 DDEFS += -DEFI_CONSOLE_TX_BRAIN_PIN=Gpio::A9
 DDEFS += -DEFI_CONSOLE_RX_BRAIN_PIN=Gpio::A10
 DDEFS += -DEFI_CONSOLE_AF=7
-
-# Wymuszenie sprzętowego sterownika SDIO (zamiast powolnego SPI)
-DDEFS += -DHAL_USE_SDC=TRUE
-DDEFS += -DEFI_SDC_DEVICE=SDCD1
-DDEFS += -D"board_sdc_is_inserted()=true"
