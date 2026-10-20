@@ -32,18 +32,6 @@ echo "Applying SD info diagnostics patch"
 git -C ext/rusefi apply \
   "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
 
-echo "Verifying SDIO command diagnostics patch"
-git -C ext/rusefi/firmware/ChibiOS apply --reverse --check \
-  "$GITHUB_WORKSPACE/.github/patches/sdio-diagnostics.patch"
-echo "Verifying SDC connect-stage diagnostics patch"
-git -C ext/rusefi/firmware/ChibiOS apply --reverse --check \
-  "$GITHUB_WORKSPACE/.github/patches/sdc-connect-diagnostics.patch"
-echo "Verifying RCA mask patch"
-git -C ext/rusefi/firmware/ChibiOS apply --reverse --check \
-  "$GITHUB_WORKSPACE/.github/patches/sdc-rca-mask.patch"
-echo "Verifying SDIO clock diagnostics patch"
-git -C ext/rusefi/firmware/ChibiOS apply --reverse --check \
-  "$GITHUB_WORKSPACE/.github/patches/sdc-clock-diagnostics.patch"
-echo "Verifying SD info diagnostics patch"
-git -C ext/rusefi apply --reverse --check \
-  "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
+echo "Checking patched SDIO sources for whitespace errors"
+git -C ext/rusefi/firmware/ChibiOS diff --check
+git -C ext/rusefi diff --check
