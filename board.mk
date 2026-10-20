@@ -20,6 +20,8 @@ DDEFS += -DEFI_WIDEBAND_FIRMWARE_UPDATE=FALSE
 #see main repo for details on this any many other optional subsystems. We have too many, one has to choose what fits into his choice of stm32
 #DDEFS += -DEFI_ONBOARD_MEMS=TRUE
 
+DDEFS += -DEFI_BLUETOOTH_SETUP=TRUE
+
 # Primary UART: USART1 zamiast USART3 na PC10/PC11
 DDEFS += -DTS_PRIMARY_PORT=UARTD1
 DDEFS += -DSTM32_UART_USE_USART1=TRUE
