@@ -28,7 +28,8 @@ jobs:
 
       - name: Verify SDIO diagnostics patch
         run: |
-          grep -n "sdc_dbg_cmd_count++" ext/rusefi/firmware/ChibiOS/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
+          grep -n "sdc_dbg_cmd_count++" \
+            ext/rusefi/firmware/ChibiOS/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
 
       - name: Set run variables
         id: set-variables
