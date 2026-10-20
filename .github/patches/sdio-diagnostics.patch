@@ -1,9 +1,7 @@
 diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
 --- a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
 +++ b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
-@@ -69,6 +69,14 @@
- 
- /** @brief SDCD1 driver identifier.*/
+@@ -71,4 +71,12 @@
  SDCDriver SDCD1;
 +
 +/* Temporary SDIO diagnostics are defined by rusEFI's sdinfo module. */
