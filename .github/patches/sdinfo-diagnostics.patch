@@ -1,0 +1,30 @@
+diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
+--- a/firmware/hw_layer/mmc_card.cpp
++++ b/firmware/hw_layer/mmc_card.cpp
+@@ -377,6 +377,16 @@
+ #endif
+ }
+ 
++#if !HAL_USE_MMC_SPI
++extern "C" {
++extern volatile uint32_t sdc_dbg_cmd;
++extern volatile uint32_t sdc_dbg_arg;
++extern volatile uint32_t sdc_dbg_sta;
++extern volatile uint32_t sdc_dbg_resp;
++extern volatile uint32_t sdc_dbg_cmd_count;
++}
++#endif
++
+ static void sdStatistics() {
+ 	printMmcPinout();
+ 	efiPrintf("SD enabled=%s status=%s target mode=%s%s", boolToString(engineConfiguration->isSdCardEnabled),
+@@ -392,6 +402,9 @@
+ #endif
+ #else
+ 	efiPrintf("SDIO mode");
++	efiPrintf("SDIO diag: CMD%u arg=%08x STA=%08x RESP=%08x n=%u",
++		(unsigned)sdc_dbg_cmd, (unsigned)sdc_dbg_arg, (unsigned)sdc_dbg_sta,
++		(unsigned)sdc_dbg_resp, (unsigned)sdc_dbg_cmd_count);
+ #endif
+ 	if (sdLoggerIsReady()) {
+ 		efiPrintf("filename=%s size=%d", logName, logBuffer.size());

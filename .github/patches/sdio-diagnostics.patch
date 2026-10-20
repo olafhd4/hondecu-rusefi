@@ -6,7 +6,7 @@ diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LL
  /** @brief SDCD1 driver identifier.*/
  SDCDriver SDCD1;
 +
-+/* Temporary SDIO diagnostics; inspect in the downloaded ELF with a debugger. */
++/* Temporary SDIO diagnostics; inspect in downloaded ELF with a debugger. */
 +volatile uint32_t sdc_dbg_cmd;
 +volatile uint32_t sdc_dbg_arg;
 +volatile uint32_t sdc_dbg_sta;
@@ -80,21 +80,29 @@ diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LL
    return HAL_SUCCESS;
  }
  
-@@ -676,6 +700,10 @@
-                                uint32_t *resp) {
-   uint32_t sta;
+@@ -678,12 +702,17 @@
+ 
+   (void)sdcp;
  
 +  sdc_dbg_cmd = cmd;
 +  sdc_dbg_arg = arg;
 +  sdc_dbg_resp = 0xFFFFFFFFU;
 +  sdc_dbg_cmd_count++;
-   (void)sdcp;
- 
    sdcp->sdio->ARG = arg;
-@@ -695,5 +723,6 @@
+   sdcp->sdio->CMD = (uint32_t)cmd | SDIO_CMD_WAITRESP_0 | SDIO_CMD_WAITRESP_1 |
+                                     SDIO_CMD_CPSMEN;
+   while (((sta = sdcp->sdio->STA) & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+                                      SDIO_STA_CCRCFAIL)) == 0U)
+     ;
++  sdc_dbg_sta = sta;
+   sdcp->sdio->ICR = sta & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
+                            SDIO_STA_CCRCFAIL);
+   if ((sta & (SDIO_STA_ERROR_MASK)) != 0U) {
+@@ -695,6 +724,7 @@
    *resp++ = sdcp->sdio->RESP3;
    *resp++ = sdcp->sdio->RESP2;
    *resp   = sdcp->sdio->RESP1;
-+  sdc_dbg_resp = resp[-3];
++  sdc_dbg_resp = sdcp->sdio->RESP1;
    return HAL_SUCCESS;
  }
+ 

@@ -15,12 +15,16 @@ jobs:
         with:
           submodules: true
 
-      - name: Apply SDIO diagnostic patch
+      - name: Apply SDIO diagnostic patches
         run: |
           git -C ext/rusefi/firmware/ChibiOS apply --check \
             "$GITHUB_WORKSPACE/.github/patches/sdio-diagnostics.patch"
           git -C ext/rusefi/firmware/ChibiOS apply \
             "$GITHUB_WORKSPACE/.github/patches/sdio-diagnostics.patch"
+          git -C ext/rusefi apply --ignore-space-change --check \
+            "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
+          git -C ext/rusefi apply --ignore-space-change \
+            "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
 
       - name: Set run variables
         id: set-variables
