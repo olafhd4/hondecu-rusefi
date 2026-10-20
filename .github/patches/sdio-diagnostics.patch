@@ -108,11 +108,10 @@ diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LL
    sdcp->sdio->ICR = sta & (SDIO_STA_CMDREND | SDIO_STA_CTIMEOUT |
                             SDIO_STA_CCRCFAIL);
    if ((sta & (SDIO_STA_ERROR_MASK)) != 0U) {
-@@ -695,6 +729,7 @@
+@@ -695,5 +729,6 @@
    *resp++ = sdcp->sdio->RESP3;
    *resp++ = sdcp->sdio->RESP2;
    *resp   = sdcp->sdio->RESP1;
 +  sdc_dbg_resp = sdcp->sdio->RESP1;
    return HAL_SUCCESS;
  }
- 

@@ -29,7 +29,7 @@ diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
  #endif
  	if (sdLoggerIsReady()) {
  		efiPrintf("filename=%s size=%d", logName, logBuffer.size());
-@@ -693,10 +707,15 @@
+@@ -693,10 +707,14 @@
   * Returns a BaseBlockDevice* corresponding to the SD card if successful, otherwise nullptr.
   */
  static BaseBlockDevice* initializeMmcBlockDevice() {
@@ -38,7 +38,6 @@ diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
 +	sdc_dbg_stage = 2;
 +	sdc_dbg_stage = 3;
  	if (blkConnect(&EFI_SDC_DEVICE) != HAL_SUCCESS) {
-+		sdc_dbg_stage = 5;
  		return nullptr;
  	}
 +	sdc_dbg_stage = 4;

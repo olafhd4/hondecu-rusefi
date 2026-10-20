@@ -1,0 +1,34 @@
+diff --git a/os/hal/src/hal_sdc.c b/os/hal/src/hal_sdc.c
+--- a/os/hal/src/hal_sdc.c
++++ b/os/hal/src/hal_sdc.c
+@@ -26,7 +26,9 @@
+ #include "hal.h"
+ 
+ #if (HAL_USE_SDC == TRUE) || defined(__DOXYGEN__)
++
++extern volatile uint32_t sdc_dbg_stage;
+ 
+ /*===========================================================================*/
+ /* Driver local definitions.                                                 */
+ /*===========================================================================*/
+@@ -676,6 +678,7 @@
+   uint32_t resp[1];
+   sdcbusclk_t clk = SDC_CLK_25MHz;
+ 
++  sdc_dbg_stage = 60;
+   osalDbgCheck(sdcp != NULL);
+   osalDbgAssert((sdcp->state == BLK_ACTIVE) || (sdcp->state == BLK_READY),
+                 "invalid state");
+@@ -684,9 +687,12 @@
+   sdcp->state = BLK_CONNECTING;
+ 
+   /* Card clock initialization.*/
++  sdc_dbg_stage = 61;
+   sdc_lld_start_clk(sdcp);
++  sdc_dbg_stage = 62;
+ 
+   /* Enforces the initial card state.*/
++  sdc_dbg_stage = 63;
+   sdc_lld_send_cmd_none(sdcp, MMCSD_CMD_GO_IDLE_STATE, 0);
+ 
+   /* Detect card type.*/
