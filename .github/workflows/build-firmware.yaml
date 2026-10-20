@@ -21,9 +21,9 @@ jobs:
             "$GITHUB_WORKSPACE/.github/patches/sdio-diagnostics.patch"
           git -C ext/rusefi/firmware/ChibiOS apply \
             "$GITHUB_WORKSPACE/.github/patches/sdio-diagnostics.patch"
-          git -C ext/rusefi apply --ignore-space-change --check \
+          git -C ext/rusefi apply --check \
             "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
-          git -C ext/rusefi apply --ignore-space-change \
+          git -C ext/rusefi apply \
             "$GITHUB_WORKSPACE/.github/patches/sdinfo-diagnostics.patch"
 
       - name: Set run variables

@@ -7,11 +7,11 @@ diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
  
 +#if !HAL_USE_MMC_SPI
 +extern "C" {
-+extern volatile uint32_t sdc_dbg_cmd;
-+extern volatile uint32_t sdc_dbg_arg;
-+extern volatile uint32_t sdc_dbg_sta;
-+extern volatile uint32_t sdc_dbg_resp;
-+extern volatile uint32_t sdc_dbg_cmd_count;
++volatile uint32_t sdc_dbg_cmd = 0;
++volatile uint32_t sdc_dbg_arg = 0;
++volatile uint32_t sdc_dbg_sta = 0;
++volatile uint32_t sdc_dbg_resp = 0xFFFFFFFFU;
++volatile uint32_t sdc_dbg_cmd_count = 0;
 +}
 +#endif
 +

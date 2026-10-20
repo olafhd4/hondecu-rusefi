@@ -6,12 +6,12 @@ diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LL
  /** @brief SDCD1 driver identifier.*/
  SDCDriver SDCD1;
 +
-+/* Temporary SDIO diagnostics; inspect in downloaded ELF with a debugger. */
-+volatile uint32_t sdc_dbg_cmd;
-+volatile uint32_t sdc_dbg_arg;
-+volatile uint32_t sdc_dbg_sta;
-+volatile uint32_t sdc_dbg_resp;
-+volatile uint32_t sdc_dbg_cmd_count;
++/* Temporary SDIO diagnostics are defined by rusEFI's sdinfo module. */
++extern volatile uint32_t sdc_dbg_cmd;
++extern volatile uint32_t sdc_dbg_arg;
++extern volatile uint32_t sdc_dbg_sta;
++extern volatile uint32_t sdc_dbg_resp;
++extern volatile uint32_t sdc_dbg_cmd_count;
  
  /*===========================================================================*/
  /* Driver local variables and types.                                         */
