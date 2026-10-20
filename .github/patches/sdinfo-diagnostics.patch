@@ -1,7 +1,7 @@
 diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
 --- a/firmware/hw_layer/mmc_card.cpp
 +++ b/firmware/hw_layer/mmc_card.cpp
-@@ -377,6 +377,17 @@
+@@ -377,6 +377,21 @@
  #endif
  }
  
@@ -13,23 +13,30 @@ diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
 +volatile uint32_t sdc_dbg_resp = 0xFFFFFFFFU;
 +volatile uint32_t sdc_dbg_cmd_count = 0;
 +volatile uint32_t sdc_dbg_stage = 0;
++volatile uint32_t sdc_dbg_cmd6_stage = 0;
++volatile uint32_t sdc_dbg_clk_mode = 0xFFFFFFFFU;
++volatile uint32_t sdc_dbg_clkcr = 0;
++volatile uint32_t sdc_dbg_clk_hz = 0;
 +}
 +#endif
 +
  static void sdStatistics() {
  	printMmcPinout();
  	efiPrintf("SD enabled=%s status=%s target mode=%s%s", boolToString(engineConfiguration->isSdCardEnabled),
-@@ -392,6 +403,9 @@
+@@ -392,6 +407,12 @@
  #endif
  #else
  	efiPrintf("SDIO mode");
 +	efiPrintf("SDIO diag: stage=%u CMD%u arg=%08x STA=%08x RESP=%08x n=%u",
 +		(unsigned)sdc_dbg_stage, (unsigned)sdc_dbg_cmd, (unsigned)sdc_dbg_arg, (unsigned)sdc_dbg_sta,
 +		(unsigned)sdc_dbg_resp, (unsigned)sdc_dbg_cmd_count);
++	efiPrintf("SDIO clock diag: CMD6 stage=%u mode=%uMHz CLKCR=%08x Hz=%u",
++		(unsigned)sdc_dbg_cmd6_stage, (unsigned)sdc_dbg_clk_mode, (unsigned)sdc_dbg_clkcr,
++		(unsigned)sdc_dbg_clk_hz);
  #endif
  	if (sdLoggerIsReady()) {
  		efiPrintf("filename=%s size=%d", logName, logBuffer.size());
-@@ -693,10 +707,14 @@
+@@ -693,10 +714,15 @@
   * Returns a BaseBlockDevice* corresponding to the SD card if successful, otherwise nullptr.
   */
  static BaseBlockDevice* initializeMmcBlockDevice() {
@@ -37,6 +44,7 @@ diff --git a/firmware/hw_layer/mmc_card.cpp b/firmware/hw_layer/mmc_card.cpp
  	sdcStart(&EFI_SDC_DEVICE, &sdcConfig);
 +	sdc_dbg_stage = 2;
 +	sdc_dbg_stage = 3;
++	sdc_dbg_clk_mode = 0xFFFFFFFFU;
  	if (blkConnect(&EFI_SDC_DEVICE) != HAL_SUCCESS) {
  		return nullptr;
  	}

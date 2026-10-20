@@ -1,0 +1,75 @@
+diff --git a/os/hal/src/hal_sdc.c b/os/hal/src/hal_sdc.c
+--- a/os/hal/src/hal_sdc.c
++++ b/os/hal/src/hal_sdc.c
+@@ -29,2 +29,3 @@
+ extern volatile uint32_t sdc_dbg_stage;
++extern volatile uint32_t sdc_dbg_clk_mode;
+ 
+@@ -318,6 +318,9 @@ static bool sdc_detect_bus_clk(SDCDriver *sdcp, sdcbusclk_t *clk) {
+   uint32_t cmdarg;
+   const size_t N = 64;
+   uint8_t *tmp = sdcp->buf;
++  extern volatile uint32_t sdc_dbg_cmd6_stage;
++
++  sdc_dbg_cmd6_stage = 0;
+ 
+   /* Safe default.*/
+   *clk = SDC_CLK_25MHz;
+@@ -335,9 +338,11 @@ static bool sdc_detect_bus_clk(SDCDriver *sdcp, sdcbusclk_t *clk) {
+   }
+ 
+   /* Read switch functions' register.*/
++  sdc_dbg_cmd6_stage = 1;
+   if (sdc_lld_read_special(sdcp, tmp, N, MMCSD_CMD_SWITCH, 0)) {
+     return HAL_FAILED;
+   }
++  sdc_dbg_cmd6_stage = 2;
+ 
+   /* Check card capabilities parsing acquired data.*/
+   if ((sdc_cmd6_extract_info(SD_SWITCH_FUNCTION_SPEED, tmp) & 2U) == 2U) {
+@@ -344,14 +348,18 @@ static bool sdc_detect_bus_clk(SDCDriver *sdcp, sdcbusclk_t *clk) {
+     cmdarg = sdc_cmd6_construct(SD_SWITCH_SET, SD_SWITCH_FUNCTION_SPEED, 1);
+ 
+     /* Write constructed command and read operation status in single call.*/
++    sdc_dbg_cmd6_stage = 3;
+     if (sdc_lld_read_special(sdcp, tmp, N, MMCSD_CMD_SWITCH, cmdarg)) {
+       return HAL_FAILED;
+     }
++    sdc_dbg_cmd6_stage = 4;
+ 
+     /* Check card answer for success status bits.*/
+     if (HAL_SUCCESS == sdc_cmd6_check_status(SD_SWITCH_FUNCTION_SPEED, tmp)) {
+       *clk = SDC_CLK_50MHz;
++      sdc_dbg_cmd6_stage = 5;
+     }
+     else {
+       *clk = SDC_CLK_25MHz;
++      sdc_dbg_cmd6_stage = 6;
+     }
+@@ -742,9 +750,10 @@ bool sdcConnect(SDCDriver *sdcp) {
+ 
+   /* Switches to high speed.*/
+   if (detect_bus_clk(sdcp, &clk) != HAL_SUCCESS) {
+     goto failed;
+   }
++  sdc_dbg_clk_mode = (clk == SDC_CLK_50MHz) ? 50U : 25U;
+   sdc_lld_set_data_clk(sdcp, clk);
+ 
+   /* Not checking CRC here according to JEDEC Standard No. 84-B51 6.6.2 */
+   if (_sdc_wait_for_transfer_state_nocrc(sdcp) != HAL_SUCCESS) {
+     goto failed;
+diff --git a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
+--- a/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
++++ b/os/hal/ports/STM32/LLD/SDIOv1/hal_sdc_lld.c
+@@ -78,2 +78,4 @@
+ extern volatile uint32_t sdc_dbg_stage;
++extern volatile uint32_t sdc_dbg_clkcr;
++extern volatile uint32_t sdc_dbg_clk_hz;
+ 
+@@ -532,3 +534,6 @@ void sdc_lld_set_data_clk(SDCDriver *sdcp, sdcbusclk_t clk) {
+ #endif
+   }
++  sdc_dbg_clkcr = sdcp->sdio->CLKCR;
++  sdc_dbg_clk_hz = 48000000U /
++      (2U * ((sdcp->sdio->CLKCR & SDIO_CLKCR_CLKDIV_Msk) + 2U));
+ }
