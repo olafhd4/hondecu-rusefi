@@ -32,8 +32,6 @@ const char* getBoardSpecificPinName(brain_pin_e brainPin) {
 			return "ALTF (PD3)";
 		case Gpio::D4:
 			return "BKSW (PD4)";
-		case Gpio::D5:
-			return "Table Switch (PD5)";
 		case Gpio::E2:
 			return "AC Switch (PE2)";
 		default:

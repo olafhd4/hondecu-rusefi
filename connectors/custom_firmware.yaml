@@ -86,10 +86,6 @@ pins:
     class: switch_inputs
     ts_name: Clutch Switch (PC13)
 
-  - id: D5
-    class: switch_inputs
-    ts_name: Table Switch (PD5)
-
   - id: [A5, A5]
     class: [switch_inputs, event_inputs]
     ts_name: TDC Trigger (PA5)
