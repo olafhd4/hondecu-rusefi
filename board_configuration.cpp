@@ -19,8 +19,8 @@ Gpio getWarningLedPin() {
 static void customBoardDefaultConfiguration() {
     engineConfiguration->uartConsoleSerialSpeed = 115200;
     engineConfiguration->tunerStudioSerialSpeed = 115200;
-    engineConfiguration->binarySerialTxPin = Gpio::A9;
-    engineConfiguration->binarySerialRxPin = Gpio::A10;
+    engineConfiguration->binarySerialTxPin = Gpio::Unassigned;
+    engineConfiguration->binarySerialRxPin = Gpio::Unassigned;
 
     // Wtryski
     engineConfiguration->injectionPins[0] = Gpio::B8;   // INJ14 - PB8
